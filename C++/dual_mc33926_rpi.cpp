@@ -1,4 +1,4 @@
-#include "dual_mc33926_rpi"
+#include "dual_mc33926_rpi.hpp"
 
 Motor::Motor(int pulsewmPin,int dirPin, int enPin){
     pwmPin = pulsewmPin;
