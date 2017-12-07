@@ -15,11 +15,11 @@ using namespace std;
 #ifndef DUAL_MC33926_RPI
 #define DUAL_MC33926_RPI
 
-const static _maxSpeed = 480; // 19.2 MHz / 2 / 480 = 20 kHz
+const static int _maxSpeed = 480; // 19.2 MHz / 2 / 480 = 20 kHz
 
 bool ioInitialize();
 
-class Motor()
+class Motor
 {
     private:
         int pwmPin;
@@ -39,9 +39,9 @@ class Motor()
         int getDirection();
         int getSpeed();
         int getEnabled();
-}
+};
 
-class motorControl()
+class motorControl
 {
     private:
         Motor leftMotor;
@@ -54,7 +54,7 @@ class motorControl()
         void left(int,int);
         void right(int,int);
         void stop();
-}
+};
 
 #endif
 

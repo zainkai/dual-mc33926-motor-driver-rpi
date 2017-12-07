@@ -7,13 +7,13 @@ Motor::Motor(int pulsewmPin,int dirPin, int enPin){
     speed = 0;
 
     //need eces to describe what some of this does.
-    pinMode(pwmPin, GPIO.PWM_OUTPUT);
-    pwmSetMode(wiringpi.GPIO.PWM_MODE_MS);
-    pwmSetRange(MAX_SPEED);
+    pinMode(pwmPin, PWM_OUTPUT);
+    pwmSetMode(PWM_MODE_MS);
+    pwmSetRange(_maxSpeed);
     pwmSetClock(2);
 
-    pinMode(directionPin,GPIO.OUTPUT);
-    pinMode(enablePin,GPIO.OUTPUT);
+    pinMode(directionPin,OUTPUT);
+    pinMode(enablePin,OUTPUT);
 }
 
 int main(int argc, char** argv)
