@@ -4,6 +4,6 @@ FLAGS = $(LIBS) -Wall
 STANDARD = -std=c++11
 
 all: dual_mc33926_rpi.cpp
-        $(CC) -o dual_mc33926_rpi dual_mc33926_rpi.cpp $(FLAGS)
+	$(CC) -o dual_mc33926_rpi dual_mc33926_rpi.cpp $(FLAGS)
 clean:
-        rm dual_mc33926_rpi
+	rm dual_mc33926_rpi

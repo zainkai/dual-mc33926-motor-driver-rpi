@@ -4,7 +4,7 @@
 int main(int argc, char** argv)
 {
     if(wiringPiSetup() == -1){
-        exit(1)
+        exit(1);
     }
     
 
