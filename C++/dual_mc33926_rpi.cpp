@@ -3,7 +3,10 @@
 
 int main(int argc, char** argv)
 {
-    wiringPiSetup();
+    if(wiringPiSetup() == -1){
+        exit(1)
+    }
+    
 
     printf("wiringPi is working!\n");
 

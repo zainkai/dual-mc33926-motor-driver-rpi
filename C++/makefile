@@ -1,6 +1,9 @@
-all: dual_mc33926_rpi
-	g++ -Wall -o dual_mc33926_rpi dual_mc33926_rpi.cpp -lwiringPi
-build_wiringpi:
-	./wiringPi/build
+CC = g++
+LIBS = -I/usr/local/include -L/usr/local/lib -lwiringPi
+FLAGS = $(LIBS) -Wall
+STANDARD = -std=c++11
+
+all: dual_mc33926_rpi.cpp
+        $(CC) -o dual_mc33926_rpi dual_mc33926_rpi.cpp $(FLAGS)
 clean:
-	rm dual_mc33926_rpi
+        rm dual_mc33926_rpi
