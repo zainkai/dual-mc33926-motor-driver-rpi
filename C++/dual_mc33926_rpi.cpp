@@ -60,7 +60,7 @@ int Motor::getSpeed(){
     return speed;
 }
 
-boolclear Motor::getEnabled(){
+bool Motor::getEnabled(){
     return enabled;
 }
 
