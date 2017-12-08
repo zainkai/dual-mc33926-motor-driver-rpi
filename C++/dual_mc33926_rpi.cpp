@@ -133,8 +133,8 @@ int main(int argc, char** argv)
     
     printf("wiringPi is working!\n");
 
-    motorControl driver = new motorControl(12,24,22,13,25,23);
-    driver.stop();
+    motorControl *driver = new motorControl(12,24,22,13,25,23);
+    driver->stop();
 
     printf("ran some functions\n");
 
