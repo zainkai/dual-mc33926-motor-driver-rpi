@@ -17,6 +17,9 @@ using namespace std;
 
 const static int _maxSpeed = 480; // 19.2 MHz / 2 / 480 = 20 kHz
 
+// NOTE: FORWARD = 0, BACKWARD = 1
+enum motorDirection {FORWARD, BACKWARD};
+
 bool ioInitialize();
 
 class Motor
@@ -27,18 +30,17 @@ class Motor
         int enablePin;
 
         int speed;
-        int enabled;
-        int direction;
+        bool enabled;
+        motorDirection direction;
     public:
         Motor(int,int,int);
         void enable();
-        void diable();
-        int setSpeed(int);
-        int setDirection(int);
+        void disable();
+        int setSpeed(int,motorDirection);
 
-        int getDirection();
+        motorDirection getDirection();
         int getSpeed();
-        int getEnabled();
+        bool getEnabled();
 };
 
 class motorControl
