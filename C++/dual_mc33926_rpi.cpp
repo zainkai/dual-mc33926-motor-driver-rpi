@@ -67,7 +67,7 @@ bool Motor::getEnabled(){
 //make inputs an interfact later.
 motorControl::motorControl(
     int pulsewmPinLeft, int dirPinLeft, int enPinLeft,
-    int pulsewmPinRight, int dirPinRight, int enPinRight,
+    int pulsewmPinRight, int dirPinRight, int enPinRight
 ){
     leftMotor = new Motor(pulsewmPinLeft,dirPinLeft,enPinLeft);
     rightMotor = new Motor(pulsewmPinRight,dirPinRight,enPinRight);

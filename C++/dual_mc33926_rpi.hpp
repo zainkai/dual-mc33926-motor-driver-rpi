@@ -46,8 +46,8 @@ class Motor
 class motorControl
 {
     private:
-        Motor leftMotor;
-        Motor rightMotor;
+        Motor *leftMotor;
+        Motor *rightMotor;
     public:
         motorControl(int,int,int,int,int,int);
 
