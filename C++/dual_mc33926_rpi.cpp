@@ -128,7 +128,8 @@ void motorControl::stop(){
 int main(int argc, char** argv)
 {
     if(wiringPiSetupGpio() == -1){
-        
+        printf("someting went wrong!\n");
+        return 1;
     }
     
     printf("wiringPi is working!\n");
