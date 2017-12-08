@@ -7,7 +7,7 @@ Motor::Motor(int pulsewmPin,int dirPin, int enPin){
 
     speed = 0;
     enabled = false;
-    motorDirection = FORWARD;
+    direction = FORWARD;
 
     //need eces to describe what some of this does.
     pinMode(pwmPin, PWM_OUTPUT);
@@ -19,18 +19,22 @@ Motor::Motor(int pulsewmPin,int dirPin, int enPin){
     pinMode(enablePin,OUTPUT);
 }
 
-Motor::enable(){
+bool Motor::enable(){
     digitalWrite(enablePin, 1);
     enabled = true;
+
+    return enabled;
 }
 
-Motor::disable(){
+bool Motor::disable(){
     digitalWrite(enablePin, 0);
     enabled = false;
+
+    return enabled;
 }
 
 Motor::setSpeed(int newSpeed, motorDirection newdir){
-    direction = newdir
+    direction = newdir;
 
     if(-newSpeed > _maxSpeed || newSpeed > _maxSpeed){
         speed = _maxSpeed;
@@ -44,17 +48,19 @@ Motor::setSpeed(int newSpeed, motorDirection newdir){
 
     digitalWrite(directionPin, direction);
     pwmWrite(pwmPin, speed);
-}
 
-Motor::getDirection(){
-    return direction;
-}
-
-Motor::getSpeed(){
     return speed;
 }
 
-Motor::getEnabled(){
+motorDirection Motor::getDirection(){
+    return direction;
+}
+
+int Motor::getSpeed(){
+    return speed;
+}
+
+bool Motor::getEnabled(){
     return enabled;
 }
 

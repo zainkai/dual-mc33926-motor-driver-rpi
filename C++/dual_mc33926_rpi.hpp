@@ -34,8 +34,8 @@ class Motor
         motorDirection direction;
     public:
         Motor(int,int,int);
-        void enable();
-        void disable();
+        bool enable();
+        bool disable();
         int setSpeed(int,motorDirection);
 
         motorDirection getDirection();
