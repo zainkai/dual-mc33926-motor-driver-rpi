@@ -33,7 +33,7 @@ bool Motor::disable(){
     return enabled;
 }
 
-Motor::setSpeed(int newSpeed, motorDirection newdir){
+int Motor::setSpeed(int newSpeed, motorDirection newdir){
     direction = newdir;
 
     if(-newSpeed > _maxSpeed || newSpeed > _maxSpeed){
@@ -60,7 +60,7 @@ int Motor::getSpeed(){
     return speed;
 }
 
-bool Motor::getEnabled(){
+boolclear Motor::getEnabled(){
     return enabled;
 }
 
