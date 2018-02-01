@@ -1,7 +1,22 @@
 #include "dual_mc33926_rpi.hpp"
 
-Motor::Motor(int pulsewmPin,int dirPin, int enPin){
-    pwmPin = pulsewmPin;
+void IO_INITIALIZE() {
+    //PWM
+    pinMode(12, PWM_OUTPUT);
+    pinMode(13, PWM_OUTPUT);
+    pwmSetMode(PWM_MODE_MS);
+    pwmSetRange(_maxSpeed);
+    pwmSetClock(2);
+
+    pinMode(22,OUTPUT);
+    pinMode(23,OUTPUT);
+    pinMode(24,OUTPUT);
+    pinMode(25,OUTPUT);
+
+}
+
+Motor::Motor(int pulsepwmPin,int dirPin, int enPin){
+    pwmPin = pulsepwmPin;
     directionPin = dirPin;
     enablePin = enPin;
 
@@ -9,14 +24,7 @@ Motor::Motor(int pulsewmPin,int dirPin, int enPin){
     enabled = false;
     direction = FORWARD;
 
-    //need eces to describe what some of this does.
-    pinMode(pwmPin, PWM_OUTPUT);
-    pwmSetMode(PWM_MODE_MS);
-    pwmSetRange(_maxSpeed);
-    pwmSetClock(2);
-
-    pinMode(directionPin,OUTPUT);
-    pinMode(enablePin,OUTPUT);
+    
 }
 
 bool Motor::enable(){
@@ -36,14 +44,11 @@ bool Motor::disable(){
 int Motor::setSpeed(int newSpeed, motorDirection newdir){
     direction = newdir;
 
-    if(-newSpeed > _maxSpeed || newSpeed > _maxSpeed){
+    if(newSpeed > _MAXSPEED || newSpeed > _MAXSPEED){
         speed = _maxSpeed;
     }
-    else if(newSpeed < 0){
-        speed = -newSpeed;
-    }
-    else{
-        speed = newSpeed;
+    else if(newSpeed < -_MAXSPEED){
+        speed = -_MAXSPEED;
     }
 
     digitalWrite(directionPin, direction);
@@ -65,65 +70,24 @@ bool Motor::getEnabled(){
 }
 
 //make inputs an interfact later.
-motorControl::motorControl(
-    int pulsewmPinLeft, int dirPinLeft, int enPinLeft,
-    int pulsewmPinRight, int dirPinRight, int enPinRight
-){
-    leftMotor = new Motor(pulsewmPinLeft,dirPinLeft,enPinLeft);
-    rightMotor = new Motor(pulsewmPinRight,dirPinRight,enPinRight);
+motorControl::motorControl() {
+    motor1 = new Motor(12,24,22);
+    motor2 = new Motor(13,25,23);
 }
 
-void motorControl::forward(int speed){
-    leftMotor->disable();
-    rightMotor->disable();
-
-    leftMotor->setSpeed(speed,FORWARD);
-    rightMotor->setSpeed(speed,FORWARD);
-
-    leftMotor->enable();
-    rightMotor->enable();
+void motorControl::enable(int speed){
+    return motor1->enable() && motor2 ->enable();
 }
 
-void motorControl::backward(int speed){
-    leftMotor->disable();
-    rightMotor->disable();
-
-    leftMotor->setSpeed(speed,BACKWARD);
-    rightMotor->setSpeed(speed,BACKWARD);
-
-    leftMotor->enable();
-    rightMotor->enable();
+void motorControl::disable(int speed){
+    return motor1->disable() && motor2->disable();
 }
 
-void motorControl::left(int speedL,int speedR){
-    leftMotor->disable();
-    rightMotor->disable();
-
-    leftMotor->setSpeed(speedL,BACKWARD);
-    rightMotor->setSpeed(speedR,FORWARD);
-
-    leftMotor->enable();
-    rightMotor->enable();
+void motorControl::setSpeeds(int speed1, int dir1, int speed2, int dir2){
+    motor1->setSpeed(speed1,dir1);
+    motor2->setSpeed(speed2,dir2);
 }
 
-void motorControl::right(int speedL,int speedR){
-    leftMotor->disable();
-    rightMotor->disable();
-
-    leftMotor->setSpeed(speedL,FORWARD);
-    rightMotor->setSpeed(speedR,BACKWARD);
-
-    leftMotor->enable();
-    rightMotor->enable();
-}
-
-void motorControl::stop(){
-    leftMotor->disable();
-    rightMotor->disable();
-
-    leftMotor->setSpeed(0,FORWARD);
-    rightMotor->setSpeed(0,FORWARD);
-}
 
 int main(int argc, char** argv)
 {
@@ -134,7 +98,7 @@ int main(int argc, char** argv)
     
     printf("wiringPi is working!\n");
 
-    motorControl *driver = new motorControl(12,24,22,13,25,23);
+    motorControl *driver = new motorControl();
     driver->stop();
 
     printf("ran some functions\n");

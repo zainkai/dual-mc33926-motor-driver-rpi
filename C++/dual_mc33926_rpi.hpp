@@ -15,7 +15,7 @@ using namespace std;
 #ifndef DUAL_MC33926_RPI
 #define DUAL_MC33926_RPI
 
-const static int _maxSpeed = 480; // 19.2 MHz / 2 / 480 = 20 kHz
+const static int _MAXSPEED = 480; // 19.2 MHz / 2 / 480 = 20 kHz
 
 // NOTE: FORWARD = 0, BACKWARD = 1
 enum motorDirection {FORWARD, BACKWARD};
@@ -46,15 +46,13 @@ class Motor
 class motorControl
 {
     private:
-        Motor *leftMotor;
-        Motor *rightMotor;
+        Motor *motor1;
+        Motor *motor2;
     public:
-        motorControl(int,int,int,int,int,int);
-
-        void forward(int);
-        void backward(int);
-        void left(int,int);
-        void right(int,int);
+        motorControl();
+        bool enable();
+        bool disable();
+        void setSpeeds(int,int,int,int);
         void stop();
 };
 
