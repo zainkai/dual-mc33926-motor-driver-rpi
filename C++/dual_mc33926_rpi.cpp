@@ -43,7 +43,7 @@ int Motor::setSpeed(int newSpeed, motorDirection newdir){
     direction = newdir;
 
     if(newSpeed > _MAXSPEED || newSpeed > _MAXSPEED){
-        speed = _maxSpeed;
+        speed = _MAXSPEED;
     }
     else if(newSpeed < -_MAXSPEED){
         speed = -_MAXSPEED;
@@ -73,11 +73,11 @@ motorControl::motorControl() {
     motor2 = new Motor(13,25,23);
 }
 
-void motorControl::enable(int speed){
+void motorControl::enable() {
     return motor1->enable() && motor2 ->enable();
 }
 
-void motorControl::disable(int speed){
+void motorControl::disable(){
     return motor1->disable() && motor2->disable();
 }
 
@@ -100,6 +100,7 @@ int main(int argc, char** argv)
 
     motorControl *driver = new motorControl();
     driver->setSpeeds(480,FORWARD,480,FORWARD);
+    driver->enable()
 
     printf("ran some functions\n");
 
