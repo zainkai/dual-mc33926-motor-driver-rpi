@@ -85,13 +85,15 @@ if __name__ == "__main__":
         print("-ss, -setspeed : to setup both motors")
         print("\tUsage:\n\t-ss <motor1 pwm> <motor1 dir> <motor2 pwm> <motor2 dir>")
         print("\tpwm range: 0 - 480\n\tdirections: 0 - forward, 1 - backward")
-    elif "-e" in sys.argv or "-enable" in sys.argv:
+        
+    if "-e" in sys.argv or "-enable" in sys.argv:
         print("Enabling Motors...")
         M_DRIVER.enable()
     elif "-d" in sys.argv or "-disable" in sys.argv:
         print("Disabling Motors...")
         M_DRIVER.disable()
-    elif ("-ss" in sys.argv or "-setspeed" in sys.argv) and len(sys.argv) == 6:
+        
+    if ("-ss" in sys.argv or "-setspeed" in sys.argv) and len(sys.argv) == 6:
         ARGS = sys.argv[2:]
         print("setting motor1 to pwm: {0}").format(int(ARGS[0]))
         print("setting motor1 to direction: {0}").format(int(ARGS[1]))
