@@ -73,11 +73,11 @@ motorControl::motorControl() {
     motor2 = new Motor(13,25,23);
 }
 
-void motorControl::enable() {
+bool motorControl::enable() {
     return motor1->enable() && motor2 ->enable();
 }
 
-void motorControl::disable(){
+bool motorControl::disable(){
     return motor1->disable() && motor2->disable();
 }
 
@@ -100,7 +100,7 @@ int main(int argc, char** argv)
 
     motorControl *driver = new motorControl();
     driver->setSpeeds(480,FORWARD,480,FORWARD);
-    driver->enable()
+    driver->enable();
 
     printf("ran some functions\n");
 
