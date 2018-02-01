@@ -101,7 +101,7 @@ int main(int argc, char** argv)
     printf("wiringPi is working!\n");
 
     motorControl *driver = new motorControl();
-    driver->stop();
+    driver->setSpeeds(480,FORWARD,480,FORWARD);
 
     printf("ran some functions\n");
 
