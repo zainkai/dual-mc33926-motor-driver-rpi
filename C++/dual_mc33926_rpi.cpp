@@ -5,7 +5,7 @@ void IO_INITIALIZE() {
     pinMode(12, PWM_OUTPUT);
     pinMode(13, PWM_OUTPUT);
     pwmSetMode(PWM_MODE_MS);
-    pwmSetRange(_maxSpeed);
+    pwmSetRange(_MAXSPEED);
     pwmSetClock(2);
 
     pinMode(22,OUTPUT);
@@ -23,8 +23,6 @@ Motor::Motor(int pulsepwmPin,int dirPin, int enPin){
     speed = 0;
     enabled = false;
     direction = FORWARD;
-
-    
 }
 
 bool Motor::enable(){

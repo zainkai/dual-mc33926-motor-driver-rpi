@@ -52,7 +52,7 @@ class motorControl
         motorControl();
         bool enable();
         bool disable();
-        void setSpeeds(int,int,int,int);
+        void setSpeeds(int,motorDirection,int,motorDirection);
         void stop();
 };
 
