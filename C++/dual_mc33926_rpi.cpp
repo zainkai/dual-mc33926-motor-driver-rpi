@@ -95,6 +95,8 @@ int main(int argc, char** argv)
         printf("someting went wrong!\n");
         return 1;
     }
+
+    IO_INITIALIZE();
     
     printf("wiringPi is working!\n");
 
