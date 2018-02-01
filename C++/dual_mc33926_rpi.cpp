@@ -81,7 +81,7 @@ bool motorControl::disable(){
     return motor1->disable() && motor2->disable();
 }
 
-void motorControl::setSpeeds(int speed1, int dir1, int speed2, int dir2){
+void motorControl::setSpeeds(int speed1, motorDirection dir1, int speed2, motorDirection dir2){
     motor1->setSpeed(speed1,dir1);
     motor2->setSpeed(speed2,dir2);
 }
