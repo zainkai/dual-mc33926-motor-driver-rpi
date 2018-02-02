@@ -9,7 +9,6 @@ IO_INITIALIZED = False
 def io_init_motor_drive():
     """
     Checks and initializes all GPIO pins for motor drivers.
-
     Note:
         This must be initialized before constructing a MotorDriver object.
     """
@@ -46,13 +45,13 @@ class Motor(object):
         wiringpi.digitalWrite(self.enable_pin, 1)
     def disable(self):
         wiringpi.digitalWrite(self.enable_pin, 0)
-    def set_speed(self, new_speed, motorDirection):
-        if new_speed > MAX_SPEED:
+    def set_speed(self, new_speed, motor_direction):
+        if new_speed < 0: # always positive pwm value
+            new_speed = -new_speed
+        if new_speed > MAX_SPEED: # pwm value cannot be greater than Max
             new_speed = MAX_SPEED
-        elif new_speed < -MAX_SPEED:
-            new_speed = -MAX_SPEED
 
-        wiringpi.digitalWrite(self.direction_pin, motorDirection)
+        wiringpi.digitalWrite(self.direction_pin, motor_direction)
         wiringpi.pwmWrite(self.pwm_pin, new_speed)
 
 
@@ -73,10 +72,11 @@ class MotorDriver(object):
         self.motor1.set_speed(m1_speed, m1_dir)
         self.motor2.set_speed(m2_speed, m2_dir)
 
+#command line interface for testing.
 if __name__ == "__main__":
     M_DRIVER = MotorDriver()
     io_init_motor_drive()
-    invalid_command = true
+    invalid_command = True
 
     if "-h" in sys.argv or "-help" in sys.argv:
         print("Help text for Pololu dual_mc33926.")
@@ -86,16 +86,16 @@ if __name__ == "__main__":
         print("-ss, -setspeed : to setup both motors")
         print("\tUsage:\n\t-ss <motor1 pwm> <motor1 dir> <motor2 pwm> <motor2 dir>")
         print("\tpwm range: 0 - 480\n\tdirections: 0 - forward, 1 - backward")
-        invalid_command = false
+        invalid_command = False
         
     if "-e" in sys.argv or "-enable" in sys.argv:
         print("Enabling Motors...")
         M_DRIVER.enable()
-        invalid_command = false
+        invalid_command = False
     elif "-d" in sys.argv or "-disable" in sys.argv:
         print("Disabling Motors...")
         M_DRIVER.disable()
-        invalid_command = false
+        invalid_command = False
         
     if ("-ss" in sys.argv or "-setspeed" in sys.argv) and len(sys.argv) == 6:
         ARGS = sys.argv[2:]
@@ -104,7 +104,7 @@ if __name__ == "__main__":
         print("setting motor2 to pwm: {0}").format(int(ARGS[2]))
         print("setting motor2 to direction: {0}").format(int(ARGS[3]))
         M_DRIVER.set_speeds(int(ARGS[0]), int(ARGS[1]), int(ARGS[2]), int(ARGS[3]))
-        invalid_command = false
+        invalid_command = False
     if invalid_command:
         print("Invalid command arguments.")
         print("-h, -help : for help text.")
