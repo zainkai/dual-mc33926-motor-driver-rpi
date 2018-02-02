@@ -42,11 +42,11 @@ bool Motor::disable(){
 int Motor::setSpeed(int newSpeed, motorDirection newdir){
     direction = newdir;
 
-    if(newSpeed > _MAXSPEED || newSpeed > _MAXSPEED){
-        speed = _MAXSPEED;
+    if(newSpeed < 0){
+        speed = -newSpeed;
     }
-    else if(newSpeed < -_MAXSPEED){
-        speed = -_MAXSPEED;
+    if(newSpeed > _MAXSPEED){
+        speed = _MAXSPEED;
     }
 
     digitalWrite(directionPin, direction);
