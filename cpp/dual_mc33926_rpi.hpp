@@ -1,9 +1,7 @@
 /**************************************************************************
 ** Author: Kevin Turkington
 ** 12/7/17
-** Description: Motor driver for raspberry PI using the wiringPi library.
-** For Oregon State Universitys, USLI competition rover 
-** http://osuusli.com/
+** Description: Pololu dual MC33926 motor driver for raspberry PI, using the wiringPi library.
 ** Based off of https://github.com/pololu/dual-mc33926-motor-driver-rpi
 **************************************************************************/
 
